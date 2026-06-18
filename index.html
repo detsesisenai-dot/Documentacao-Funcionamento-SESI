@@ -51,49 +51,48 @@
             {
                 id: "s1", name: "SESI Aparecida", type: "Própria",
                 documents: [
-                    { id: "d1", type: "E.F. Anos Finais", name: "CEE/CEB N.452", expiration: "2027-12-31", observations: "Vigência até 31/12/2027" },
-                    { id: "d2", type: "E.Médio Itinerário", name: "CEE/CEB N.02 de 01/02/2019", expiration: "2023-12-31", observations: "Diligência 187 respondida pela escola em 23/01/25" },
-                    { id: "d3", type: "EJA", name: "CEE/CEB N.45 Presencial e a distância", expiration: "2021-12-31", observations: "Vistoria agendada para 29/08/25" }
+                    { id: "d1", type: "Processos em andamento EF Anos Finais", name: "CEE/CEB N.452", expiration: "2027-12-31", observations: "Vigência até 31/12/2027" },
+                    { id: "d2", type: "Processos em andamento Ensino Médio", name: "CEE/CEB N.02 de 01/02/2019", expiration: "2023-12-31", observations: "Diligência 187 respondida pela escola em 23/01/25" },
+                    { id: "d3", type: "Processos em andamento EJA Presencial", name: "CEE/CEB N.45 Presencial e a distância", expiration: "2021-12-31", observations: "Vistoria agendada para 29/08/25" }
                 ]
             },
             {
                 id: "s2", name: "SESI Quirinópolis", type: "Própria",
                 documents: [
-                    { id: "d4", type: "EJA EaD", name: "Processo 202518037007163", expiration: "2024-12-31", observations: "Pendente devido a reformas" }
+                    { id: "d4", type: "Processos em andamento EJA EAD", name: "Processo 202518037007163", expiration: "2024-12-31", observations: "Pendente devido a reformas" }
                 ]
             },
             {
                 id: "s3", name: "SESI Crixás", type: "Mantenedora",
                 documents: [
-                    { id: "d5", type: "Educação Infantil", name: "CME/ Crixás nº 007", expiration: "2027-12-31", observations: "" },
-                    { id: "d6", type: "E.F. Anos Iniciais", name: "CEE/CEB N.619", expiration: "2028-12-31", observations: "" }
+                    { id: "d5", type: "Autorização Educação Infantil", name: "CME/ Crixás nº 007", expiration: "2027-12-31", observations: "" },
+                    { id: "d6", type: "Autorização EF Anos Iniciais", name: "CEE/CEB N.619", expiration: "2028-12-31", observations: "" }
                 ]
             },
             {
                 id: "s4", name: "SESI Minaçu", type: "Mantenedora",
                 documents: [
-                    { id: "d7", type: "EF Anos Finais", name: "CEE/CEB N440", expiration: "2026-12-31", observations: "" },
-                    { id: "d8", type: "Ensino Médio", name: "Processo 202500006074457 Itinerário Automação", expiration: "2026-12-31", observations: "UEG não tem esse doc" }
+                    { id: "d7", type: "Autorização EF Anos Finais", name: "CEE/CEB N440", expiration: "2026-12-31", observations: "" },
+                    { id: "d8", type: "Autorização EM - Automação Industrial", name: "Processo 202500006074457 Itinerário Automação", expiration: "2026-12-31", observations: "UEG não tem esse doc" }
                 ]
             },
             {
                 id: "s5", name: "SESI Niquelândia", type: "Própria",
                 documents: [
-                    { id: "d9", type: "Educação Infantil", name: "Resolução CME N.03", expiration: "2027-12-31", observations: "Processo n.202418037011639" },
-                    { id: "d10", type: "EF Anos Iniciais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", observations: "" },
-                    { id: "d11", type: "EF Anos Finais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", observations: "" }
+                    { id: "d9", type: "Autorização Educação Infantil", name: "Resolução CME N.03", expiration: "2027-12-31", observations: "Processo n.202418037011639" },
+                    { id: "d10", type: "Autorização EF Anos Iniciais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", observations: "" },
+                    { id: "d11", type: "Autorização EF Anos Finais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", observations: "" }
                 ]
             },
             {
                 id: "s6", name: "SESI Planalto", type: "Própria",
                 documents: [
-                    { id: "d12", type: "EF Anos Iniciais", name: "Resolução CEE/CEB N.399", expiration: "2029-12-31", observations: "Processo n.202418037009981" },
-                    { id: "d13", type: "Ensino Médio", name: "Resolução CEE/CEB/CEP N.06", expiration: "2028-12-31", observations: "" }
+                    { id: "d12", type: "Autorização EF Anos Iniciais", name: "Resolução CEE/CEB N.399", expiration: "2029-12-31", observations: "Processo n.202418037009981" },
+                    { id: "d13", type: "Autorização EM - Ciências da Natureza", name: "Resolução CEE/CEB/CEP N.06", expiration: "2028-12-31", observations: "" }
                 ]
             }
         ];
 
-        // --- ICONES SVG INLINE ---
         const Icons = {
             Alert: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>,
             Check: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>,
@@ -105,22 +104,19 @@
             Download: () => <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
         };
 
-        // --- COMPONENTE PRINCIPAL ---
         const App = () => {
-            // Estado principal (carrega do LocalStorage ou usa dados iniciais)
             const [schools, setSchools] = useState(() => {
                 const saved = localStorage.getItem('sesiEscolasDocs');
                 if (saved) return JSON.parse(saved);
                 return initialData;
             });
 
-            // Estados de Filtros
+            // Filtros
             const [searchTerm, setSearchTerm] = useState('');
             const [filterSchool, setFilterSchool] = useState('');
             const [filterStatus, setFilterStatus] = useState('');
             const [filterType, setFilterType] = useState('');
 
-            // Lista oficial de tipos de documentos solicitados
             const officialTypes = [
                 "Autorização EAD",
                 "Autorização Presencial",
@@ -129,7 +125,6 @@
                 "ALVARÁ DE LOCALIZAÇÃO E FUNCIONAMENTO DA PREFEITURA MUNICIPAL"
             ];
 
-            // Junta a lista oficial com os tipos que já existem cadastrados na base (evita duplicações)
             const availableTypes = useMemo(() => {
                 const types = new Set(officialTypes);
                 schools.forEach(s => s.documents.forEach(d => {
@@ -138,21 +133,25 @@
                 return Array.from(types);
             }, [schools]);
 
-            // Estados do Modal de Edição/Inclusão
+            // Estados do Modal
             const [isModalOpen, setIsModalOpen] = useState(false);
-            const [currentSchoolId, setCurrentSchoolId] = useState(null);
+            const [modalSchoolId, setModalSchoolId] = useState(''); // ID da escola sendo alterada
+            const [originalSchoolId, setOriginalSchoolId] = useState(null); // ID original para caso o user mude a escola do doc
+            
+            // Dados da Nova Escola (caso crie no modal)
+            const [newSchoolName, setNewSchoolName] = useState('');
+            const [newSchoolType, setNewSchoolType] = useState('Própria');
+
             const [formData, setFormData] = useState({ id: '', type: '', name: '', expiration: '', observations: '' });
 
-            // Salva no LocalStorage sempre que 'schools' for atualizado
             useEffect(() => {
                 localStorage.setItem('sesiEscolasDocs', JSON.stringify(schools));
             }, [schools]);
 
-            // Lógica de cálculo de Status
             const getDocumentStatus = (expirationStr) => {
                 if (!expirationStr) return { label: 'Indefinido', color: 'bg-gray-100 text-gray-800', key: 'unknown', icon: null };
                 
-                const expDate = new Date(expirationStr + 'T00:00:00'); // Fuso horário fixo
+                const expDate = new Date(expirationStr + 'T00:00:00'); 
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
                 
@@ -164,7 +163,6 @@
                 return { label: 'Regular', color: 'bg-green-100 text-green-800 border-green-200', key: 'valid', icon: <Icons.Check /> };
             };
 
-            // Dados processados para o Infográfico e Filtros
             const processedData = useMemo(() => {
                 let totalDocs = 0;
                 let expiredDocs = 0;
@@ -172,19 +170,14 @@
                 let validDocs = 0;
 
                 const filtered = schools.map(school => {
-                    // Filtro de Escola
                     if (filterSchool && school.id !== filterSchool) return null;
 
                     const filteredDocs = school.documents.filter(doc => {
                         const status = getDocumentStatus(doc.expiration).key;
                         
-                        // Filtro de Status
                         if (filterStatus && status !== filterStatus) return false;
-                        
-                        // Filtro de Tipo (Novo)
                         if (filterType && doc.type !== filterType) return false;
                         
-                        // Filtro de Busca
                         const searchLower = searchTerm.toLowerCase();
                         if (searchTerm && !(
                             school.name.toLowerCase().includes(searchLower) ||
@@ -195,7 +188,6 @@
                             return false;
                         }
 
-                        // Estatísticas
                         totalDocs++;
                         if (status === 'expired') expiredDocs++;
                         if (status === 'warning') warningDocs++;
@@ -212,15 +204,20 @@
                 return { filtered, stats: { totalDocs, expiredDocs, warningDocs, validDocs } };
             }, [schools, searchTerm, filterSchool, filterStatus, filterType]);
 
-            // CRUD Functions
-            const openAddModal = (schoolId) => {
-                setCurrentSchoolId(schoolId);
+            const openAddModal = (schoolId = '') => {
+                setModalSchoolId(schoolId);
+                setOriginalSchoolId(null);
+                setNewSchoolName('');
+                setNewSchoolType('Própria');
                 setFormData({ id: '', type: '', name: '', expiration: '', observations: '' });
                 setIsModalOpen(true);
             };
 
             const openEditModal = (schoolId, doc) => {
-                setCurrentSchoolId(schoolId);
+                setModalSchoolId(schoolId);
+                setOriginalSchoolId(schoolId);
+                setNewSchoolName('');
+                setNewSchoolType('Própria');
                 setFormData({ ...doc });
                 setIsModalOpen(true);
             };
@@ -238,22 +235,53 @@
 
             const handleSaveDocument = (e) => {
                 e.preventDefault();
-                setSchools(prev => prev.map(sch => {
-                    if (sch.id === currentSchoolId) {
-                        if (formData.id) {
-                            // Edição
-                            return {
-                                ...sch,
-                                documents: sch.documents.map(d => d.id === formData.id ? formData : d)
-                            };
+                
+                if (!modalSchoolId) {
+                    alert("Por favor, selecione uma unidade escolar.");
+                    return;
+                }
+
+                let finalSchoolId = modalSchoolId;
+                let updatedSchools = [...schools];
+
+                // 1. Criar nova escola se selecionado
+                if (modalSchoolId === 'new_school') {
+                    finalSchoolId = 's_' + Date.now();
+                    const newSchool = {
+                        id: finalSchoolId,
+                        name: newSchoolName,
+                        type: newSchoolType,
+                        documents: []
+                    };
+                    updatedSchools.push(newSchool);
+                }
+
+                const docToSave = formData.id ? formData : { ...formData, id: 'd_' + Date.now() };
+
+                // 2. Remover doc da escola antiga (se mudou de escola)
+                if (formData.id && originalSchoolId && originalSchoolId !== finalSchoolId) {
+                    updatedSchools = updatedSchools.map(sch => {
+                        if (sch.id === originalSchoolId) {
+                            return { ...sch, documents: sch.documents.filter(d => d.id !== formData.id) };
+                        }
+                        return sch;
+                    });
+                }
+
+                // 3. Adicionar/Atualizar na escola final
+                updatedSchools = updatedSchools.map(sch => {
+                    if (sch.id === finalSchoolId) {
+                        const docExists = sch.documents.some(d => d.id === docToSave.id);
+                        if (docExists) {
+                            return { ...sch, documents: sch.documents.map(d => d.id === docToSave.id ? docToSave : d) };
                         } else {
-                            // Inclusão
-                            const newDoc = { ...formData, id: 'd_' + Date.now() };
-                            return { ...sch, documents: [...sch.documents, newDoc] };
+                            return { ...sch, documents: [...sch.documents, docToSave] };
                         }
                     }
                     return sch;
-                }));
+                });
+
+                setSchools(updatedSchools);
                 setIsModalOpen(false);
             };
 
@@ -263,19 +291,14 @@
                 }
             };
 
-            // Função de Exportação para CSV baseada nos filtros ativos
             const exportToCSV = () => {
-                // Definindo os cabeçalhos
                 const headers = ['Unidade', 'Tipo de Escola', 'Nível de Ensino / Curso', 'Processo / Resolução', 'Validade', 'Status', 'Observacoes'];
-
                 const rows = [];
-                // Percorre os dados já filtrados e formatados
+                
                 processedData.filtered.forEach(school => {
                     school.documents.forEach(doc => {
                         const statusObj = getDocumentStatus(doc.expiration);
                         const dataFormatada = doc.expiration ? new Date(doc.expiration + 'T00:00:00').toLocaleDateString('pt-BR') : '-';
-                        
-                        // Substituir aspas duplas nas strings para evitar quebra no CSV
                         const cleanStr = (str) => `"${(str || '').replace(/"/g, '""')}"`;
 
                         rows.push([
@@ -286,18 +309,13 @@
                             cleanStr(dataFormatada),
                             cleanStr(statusObj.label),
                             cleanStr(doc.observations)
-                        ].join(';')); // Usa ponto e vírgula para melhor compatibilidade com Excel PT-BR
+                        ].join(';'));
                     });
                 });
 
-                // Junta o cabeçalho e as linhas
                 const csvContent = headers.join(';') + '\n' + rows.join('\n');
-
-                // Adiciona o BOM para o Excel reconhecer os caracteres especiais/acentos (UTF-8)
                 const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
                 const url = URL.createObjectURL(blob);
-                
-                // Criação de link temporário e simulação de clique para download
                 const link = document.createElement('a');
                 link.href = url;
                 link.download = `relatorio_documentacoes_sesi_${new Date().toISOString().split('T')[0]}.csv`;
@@ -309,7 +327,6 @@
 
             return (
                 <div className="min-h-screen pb-12">
-                    {/* Header Sesi Style */}
                     <header className="bg-sesi-blue text-white py-6 shadow-md">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
                             <div>
@@ -333,7 +350,7 @@
 
                     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
                         
-                        {/* Infográfico Superior (Métricas) */}
+                        {/* Infográfico Superior */}
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                             <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center justify-between border-l-4 border-l-sesi-blue">
                                 <div>
@@ -364,7 +381,7 @@
                             </div>
                         </div>
 
-                        {/* Barra de Filtros e Botões */}
+                        {/* Barra de Filtros e Botões Globais */}
                         <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-1 w-full">
                                 <div className="relative w-full">
@@ -418,14 +435,19 @@
                                 </div>
                             </div>
                             
-                            <div className="w-full md:w-auto mt-4 md:mt-0">
+                            <div className="w-full lg:w-auto mt-4 md:mt-0 flex flex-col sm:flex-row gap-2">
+                                <button 
+                                    onClick={() => openAddModal('')}
+                                    className="w-full sm:w-auto flex items-center justify-center px-4 py-2 border border-transparent text-white bg-sesi-blue hover:bg-sesi-dark rounded-lg transition font-medium text-sm shadow-sm"
+                                >
+                                    <Icons.Plus /> Novo Documento
+                                </button>
                                 <button 
                                     onClick={exportToCSV}
-                                    className="w-full md:w-auto flex items-center justify-center px-4 py-2 border border-green-600 text-green-600 bg-white hover:bg-green-50 rounded-lg transition font-medium text-sm"
+                                    className="w-full sm:w-auto flex items-center justify-center px-4 py-2 border border-green-600 text-green-600 bg-white hover:bg-green-50 rounded-lg transition font-medium text-sm"
                                     title="Exportar dados filtrados para Excel"
                                 >
-                                    <Icons.Download />
-                                    Exportar Relatório
+                                    <Icons.Download /> Exportar Relatório
                                 </button>
                             </div>
                         </div>
@@ -446,13 +468,13 @@
                                             </div>
                                             <button 
                                                 onClick={() => openAddModal(school.id)}
-                                                className="flex items-center text-sm bg-sesi-blue hover:bg-sesi-dark text-white px-4 py-2 rounded-lg transition"
+                                                className="flex items-center text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition font-medium"
                                             >
-                                                <Icons.Plus /> Incluir Documento
+                                                <Icons.Plus /> Adicionar aqui
                                             </button>
                                         </div>
                                         
-                                        <div className="p-0">
+                                        <div className="p-0 overflow-x-auto">
                                             <table className="min-w-full divide-y divide-gray-200">
                                                 <thead className="bg-gray-50">
                                                     <tr>
@@ -514,10 +536,10 @@
 
                     </main>
 
-                    {/* Modal de Inclusão/Edição */}
+                    {}
                     {isModalOpen && (
                         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                            <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+                            <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
                                 <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
                                     <h3 className="text-lg font-bold text-gray-800">
                                         {formData.id ? 'Editar Documento' : 'Nova Documentação'}
@@ -527,54 +549,119 @@
                                     </button>
                                 </div>
                                 <div className="p-6 overflow-y-auto hide-scroll">
-                                    <form id="docForm" onSubmit={handleSaveDocument} className="space-y-4">
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Documento / Nível de Ensino *</label>
-                                            <input 
-                                                type="text" 
-                                                required
-                                                list="docTypesList"
-                                                placeholder="Selecione ou digite o tipo..."
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
-                                                value={formData.type}
-                                                onChange={(e) => setFormData({...formData, type: e.target.value})}
-                                            />
-                                            <datalist id="docTypesList">
-                                                {availableTypes.map((type, idx) => (
-                                                    <option key={`dl_${idx}`} value={type} />
-                                                ))}
-                                            </datalist>
+                                    <form id="docForm" onSubmit={handleSaveDocument} className="space-y-5">
+                                        
+                                        {/* Box de Seleção de Escola */}
+                                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-4">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-sm font-bold text-gray-700 mb-1">Unidade Escolar *</label>
+                                                    <select 
+                                                        required
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue bg-white"
+                                                        value={modalSchoolId}
+                                                        onChange={(e) => setModalSchoolId(e.target.value)}
+                                                    >
+                                                        <option value="" disabled>Selecione uma unidade...</option>
+                                                        {schools.map(s => (
+                                                            <option key={s.id} value={s.id}>{s.name}</option>
+                                                        ))}
+                                                        <option value="new_school" className="font-bold text-sesi-blue bg-blue-50">
+                                                            + Cadastrar Nova Unidade
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                
+                                                {/* Se for escola existente, mostra o tipo desabilitado */}
+                                                {modalSchoolId && modalSchoolId !== 'new_school' && (
+                                                    <div>
+                                                        <label className="block text-sm font-medium text-gray-500 mb-1">Tipo de Unidade</label>
+                                                        <input 
+                                                            type="text" 
+                                                            disabled
+                                                            className="w-full px-3 py-2 border border-transparent rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
+                                                            value={schools.find(s => s.id === modalSchoolId)?.type || ''}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Campos para Cadastrar Nova Escola */}
+                                            {modalSchoolId === 'new_school' && (
+                                                <div className="pt-4 mt-2 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                    <div>
+                                                        <label className="block text-sm font-bold text-sesi-blue mb-1">Nome da Nova Unidade *</label>
+                                                        <input 
+                                                            type="text" required
+                                                            placeholder="Ex: SESI Novo Centro"
+                                                            className="w-full px-3 py-2 border border-sesi-blue/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue bg-white"
+                                                            value={newSchoolName} onChange={(e) => setNewSchoolName(e.target.value)}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-sm font-bold text-sesi-blue mb-1">Tipo da Unidade *</label>
+                                                        <select 
+                                                            required
+                                                            className="w-full px-3 py-2 border border-sesi-blue/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue bg-white"
+                                                            value={newSchoolType} onChange={(e) => setNewSchoolType(e.target.value)}
+                                                        >
+                                                            <option value="Própria">Própria</option>
+                                                            <option value="Mantenedora">Mantenedora</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Nome/Número do Processo ou Resolução *</label>
-                                            <input 
-                                                type="text" 
-                                                required
-                                                placeholder="Ex: CEE/CEB N.452"
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
-                                                value={formData.name}
-                                                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Data de Vencimento *</label>
-                                            <input 
-                                                type="date" 
-                                                required
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
-                                                value={formData.expiration}
-                                                onChange={(e) => setFormData({...formData, expiration: e.target.value})}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Observações / Status atual</label>
-                                            <textarea 
-                                                rows="3"
-                                                placeholder="Detalhes adicionais, pendências..."
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
-                                                value={formData.observations}
-                                                onChange={(e) => setFormData({...formData, observations: e.target.value})}
-                                            ></textarea>
+
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div className="md:col-span-2">
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Documento / Nível de Ensino *</label>
+                                                <input 
+                                                    type="text" 
+                                                    required
+                                                    list="docTypesList"
+                                                    placeholder="Selecione ou digite o tipo..."
+                                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
+                                                    value={formData.type}
+                                                    onChange={(e) => setFormData({...formData, type: e.target.value})}
+                                                />
+                                                <datalist id="docTypesList">
+                                                    {availableTypes.map((type, idx) => (
+                                                        <option key={`dl_${idx}`} value={type} />
+                                                    ))}
+                                                </datalist>
+                                            </div>
+                                            <div className="md:col-span-2">
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Nome/Número do Processo ou Resolução *</label>
+                                                <input 
+                                                    type="text" 
+                                                    required
+                                                    placeholder="Ex: CEE/CEB N.452"
+                                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
+                                                    value={formData.name}
+                                                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                                />
+                                            </div>
+                                            <div className="md:col-span-2">
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Data de Vencimento *</label>
+                                                <input 
+                                                    type="date" 
+                                                    required
+                                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
+                                                    value={formData.expiration}
+                                                    onChange={(e) => setFormData({...formData, expiration: e.target.value})}
+                                                />
+                                            </div>
+                                            <div className="md:col-span-2">
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Observações / Status atual</label>
+                                                <textarea 
+                                                    rows="2"
+                                                    placeholder="Detalhes adicionais, pendências..."
+                                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
+                                                    value={formData.observations}
+                                                    onChange={(e) => setFormData({...formData, observations: e.target.value})}
+                                                ></textarea>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -589,7 +676,7 @@
                                     <button 
                                         type="submit" 
                                         form="docForm"
-                                        className="px-4 py-2 text-sm font-medium text-white bg-sesi-blue border border-transparent rounded-lg hover:bg-sesi-dark"
+                                        className="px-4 py-2 text-sm font-medium text-white bg-sesi-blue border border-transparent rounded-lg hover:bg-sesi-dark shadow-sm"
                                     >
                                         Salvar Documento
                                     </button>
