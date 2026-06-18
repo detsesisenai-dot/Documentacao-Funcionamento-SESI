@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SESI | Infográfico de Documentações Escolares</title>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    
+    <!-- Babel for JSX compilation in browser -->
+    <script src="https://unpkg.com/@babel/standalone@7.23.9/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration to enforce Helvetica -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Helvetica', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        sesi: {
+                            blue: '#005baa',
+                            dark: '#003b73',
+                            light: '#e6f0fa'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Helvetica', 'Arial', sans-serif; background-color: #ffffff; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-presets="react">
+        const { useState, useEffect, useMemo } = React;
+
+        // --- DADOS INICIAIS BASEADOS NAS PLANILHAS ---
+        const initialData = [
+            {
+                id: "s1", name: "SESI Aparecida", type: "Própria",
+                documents: [
+                    { id: "d1", type: "E.F. Anos Finais", name: "CEE/CEB N.452", expiration: "2027-12-31", observations: "Vigência até 31/12/2027" },
+                    { id: "d2", type: "E.Médio Itinerário", name: "CEE/CEB N.02 de 01/02/2019", expiration: "2023-12-31", observations: "Diligência 187 respondida pela escola em 23/01/25" },
+                    { id: "d3", type: "EJA", name: "CEE/CEB N.45 Presencial e a distância", expiration: "2021-12-31", observations: "Vistoria agendada para 29/08/25" }
+                ]
+            },
+            {
+                id: "s2", name: "SESI Quirinópolis", type: "Própria",
+                documents: [
+                    { id: "d4", type: "EJA EaD", name: "Processo 202518037007163", expiration: "2024-12-31", observations: "Pendente devido a reformas" }
+                ]
+            },
+            {
+                id: "s3", name: "SESI Crixás", type: "Mantenedora",
+                documents: [
+                    { id: "d5", type: "Educação Infantil", name: "CME/ Crixás nº 007", expiration: "2027-12-31", observations: "" },
+                    { id: "d6", type: "E.F. Anos Iniciais", name: "CEE/CEB N.619", expiration: "2028-12-31", observations: "" }
+                ]
+            },
+            {
+                id: "s4", name: "SESI Minaçu", type: "Mantenedora",
+                documents: [
+                    { id: "d7", type: "EF Anos Finais", name: "CEE/CEB N440", expiration: "2026-12-31", observations: "" },
+                    { id: "d8", type: "Ensino Médio", name: "Processo 202500006074457 Itinerário Automação", expiration: "2026-12-31", observations: "UEG não tem esse doc" }
+                ]
+            },
+            {
+                id: "s5", name: "SESI Niquelândia", type: "Própria",
+                documents: [
+                    { id: "d9", type: "Educação Infantil", name: "Resolução CME N.03", expiration: "2027-12-31", observations: "Processo n.202418037011639" },
+                    { id: "d10", type: "EF Anos Iniciais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", observations: "" },
+                    { id: "d11", type: "EF Anos Finais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", observations: "" }
+                ]
+            },
+            {
+                id: "s6", name: "SESI Planalto", type: "Própria",
+                documents: [
+                    { id: "d12", type: "EF Anos Iniciais", name: "Resolução CEE/CEB N.399", expiration: "2029-12-31", observations: "Processo n.202418037009981" },
+                    { id: "d13", type: "Ensino Médio", name: "Resolução CEE/CEB/CEP N.06", expiration: "2028-12-31", observations: "" }
+                ]
+            }
+        ];
+
+        // --- ICONES SVG INLINE ---
+        const Icons = {
+            Alert: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>,
+            Check: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>,
+            XCircle: () => <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>,
+            Edit: () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>,
+            Trash: () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>,
+            Plus: () => <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>,
+            Search: () => <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>,
+            Download: () => <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        };
+
+        // --- COMPONENTE PRINCIPAL ---
+        const App = () => {
+            // Estado principal (carrega do LocalStorage ou usa dados iniciais)
+            const [schools, setSchools] = useState(() => {
+                const saved = localStorage.getItem('sesiEscolasDocs');
+                if (saved) return JSON.parse(saved);
+                return initialData;
+            });
+
+            // Estados de Filtros
+            const [searchTerm, setSearchTerm] = useState('');
+            const [filterSchool, setFilterSchool] = useState('');
+            const [filterStatus, setFilterStatus] = useState('');
+            const [filterType, setFilterType] = useState('');
+
+            // Lista oficial de tipos de documentos solicitados
+            const officialTypes = [
+                "Autorização EAD",
+                "Autorização Presencial",
+                "CERCON - CERTIFICADO DE CONFORMIDADE DO CORPO DE BOMBEIROS",
+                "ALVARÁ DE VIGILÂNCIA SANITÁRIA",
+                "ALVARÁ DE LOCALIZAÇÃO E FUNCIONAMENTO DA PREFEITURA MUNICIPAL"
+            ];
+
+            // Junta a lista oficial com os tipos que já existem cadastrados na base (evita duplicações)
+            const availableTypes = useMemo(() => {
+                const types = new Set(officialTypes);
+                schools.forEach(s => s.documents.forEach(d => {
+                    if(d.type) types.add(d.type);
+                }));
+                return Array.from(types);
+            }, [schools]);
+
+            // Estados do Modal de Edição/Inclusão
+            const [isModalOpen, setIsModalOpen] = useState(false);
+            const [currentSchoolId, setCurrentSchoolId] = useState(null);
+            const [formData, setFormData] = useState({ id: '', type: '', name: '', expiration: '', observations: '' });
+
+            // Salva no LocalStorage sempre que 'schools' for atualizado
+            useEffect(() => {
+                localStorage.setItem('sesiEscolasDocs', JSON.stringify(schools));
+            }, [schools]);
+
+            // Lógica de cálculo de Status
+            const getDocumentStatus = (expirationStr) => {
+                if (!expirationStr) return { label: 'Indefinido', color: 'bg-gray-100 text-gray-800', key: 'unknown', icon: null };
+                
+                const expDate = new Date(expirationStr + 'T00:00:00'); // Fuso horário fixo
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                const diffTime = expDate - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                if (diffDays < 0) return { label: 'Vencido', color: 'bg-red-100 text-red-800 border-red-200', key: 'expired', icon: <Icons.XCircle /> };
+                if (diffDays <= 90) return { label: 'Atenção (< 90 dias)', color: 'bg-yellow-100 text-yellow-800 border-yellow-200', key: 'warning', icon: <Icons.Alert /> };
+                return { label: 'Regular', color: 'bg-green-100 text-green-800 border-green-200', key: 'valid', icon: <Icons.Check /> };
+            };
+
+            // Dados processados para o Infográfico e Filtros
+            const processedData = useMemo(() => {
+                let totalDocs = 0;
+                let expiredDocs = 0;
+                let warningDocs = 0;
+                let validDocs = 0;
+
+                const filtered = schools.map(school => {
+                    // Filtro de Escola
+                    if (filterSchool && school.id !== filterSchool) return null;
+
+                    const filteredDocs = school.documents.filter(doc => {
+                        const status = getDocumentStatus(doc.expiration).key;
+                        
+                        // Filtro de Status
+                        if (filterStatus && status !== filterStatus) return false;
+                        
+                        // Filtro de Tipo (Novo)
+                        if (filterType && doc.type !== filterType) return false;
+                        
+                        // Filtro de Busca
+                        const searchLower = searchTerm.toLowerCase();
+                        if (searchTerm && !(
+                            school.name.toLowerCase().includes(searchLower) ||
+                            doc.type.toLowerCase().includes(searchLower) ||
+                            doc.name.toLowerCase().includes(searchLower) ||
+                            doc.observations.toLowerCase().includes(searchLower)
+                        )) {
+                            return false;
+                        }
+
+                        // Estatísticas
+                        totalDocs++;
+                        if (status === 'expired') expiredDocs++;
+                        if (status === 'warning') warningDocs++;
+                        if (status === 'valid') validDocs++;
+
+                        return true;
+                    });
+
+                    if (filteredDocs.length === 0 && (filterStatus || filterType || searchTerm)) return null;
+
+                    return { ...school, documents: filteredDocs };
+                }).filter(Boolean);
+
+                return { filtered, stats: { totalDocs, expiredDocs, warningDocs, validDocs } };
+            }, [schools, searchTerm, filterSchool, filterStatus, filterType]);
+
+            // CRUD Functions
+            const openAddModal = (schoolId) => {
+                setCurrentSchoolId(schoolId);
+                setFormData({ id: '', type: '', name: '', expiration: '', observations: '' });
+                setIsModalOpen(true);
+            };
+
+            const openEditModal = (schoolId, doc) => {
+                setCurrentSchoolId(schoolId);
+                setFormData({ ...doc });
+                setIsModalOpen(true);
+            };
+
+            const handleDelete = (schoolId, docId) => {
+                if(confirm("Tem certeza que deseja excluir esta documentação?")) {
+                    setSchools(prev => prev.map(sch => {
+                        if (sch.id === schoolId) {
+                            return { ...sch, documents: sch.documents.filter(d => d.id !== docId) };
+                        }
+                        return sch;
+                    }));
+                }
+            };
+
+            const handleSaveDocument = (e) => {
+                e.preventDefault();
+                setSchools(prev => prev.map(sch => {
+                    if (sch.id === currentSchoolId) {
+                        if (formData.id) {
+                            // Edição
+                            return {
+                                ...sch,
+                                documents: sch.documents.map(d => d.id === formData.id ? formData : d)
+                            };
+                        } else {
+                            // Inclusão
+                            const newDoc = { ...formData, id: 'd_' + Date.now() };
+                            return { ...sch, documents: [...sch.documents, newDoc] };
+                        }
+                    }
+                    return sch;
+                }));
+                setIsModalOpen(false);
+            };
+
+            const resetData = () => {
+                if(confirm("Deseja restaurar os dados originais do sistema? Todas as alterações manuais serão perdidas.")) {
+                    setSchools(initialData);
+                }
+            };
+
+            // Função de Exportação para CSV baseada nos filtros ativos
+            const exportToCSV = () => {
+                // Definindo os cabeçalhos
+                const headers = ['Unidade', 'Tipo de Escola', 'Nível de Ensino / Curso', 'Processo / Resolução', 'Validade', 'Status', 'Observacoes'];
+
+                const rows = [];
+                // Percorre os dados já filtrados e formatados
+                processedData.filtered.forEach(school => {
+                    school.documents.forEach(doc => {
+                        const statusObj = getDocumentStatus(doc.expiration);
+                        const dataFormatada = doc.expiration ? new Date(doc.expiration + 'T00:00:00').toLocaleDateString('pt-BR') : '-';
+                        
+                        // Substituir aspas duplas nas strings para evitar quebra no CSV
+                        const cleanStr = (str) => `"${(str || '').replace(/"/g, '""')}"`;
+
+                        rows.push([
+                            cleanStr(school.name),
+                            cleanStr(school.type),
+                            cleanStr(doc.type),
+                            cleanStr(doc.name),
+                            cleanStr(dataFormatada),
+                            cleanStr(statusObj.label),
+                            cleanStr(doc.observations)
+                        ].join(';')); // Usa ponto e vírgula para melhor compatibilidade com Excel PT-BR
+                    });
+                });
+
+                // Junta o cabeçalho e as linhas
+                const csvContent = headers.join(';') + '\n' + rows.join('\n');
+
+                // Adiciona o BOM para o Excel reconhecer os caracteres especiais/acentos (UTF-8)
+                const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                
+                // Criação de link temporário e simulação de clique para download
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `relatorio_documentacoes_sesi_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            };
+
+            return (
+                <div className="min-h-screen pb-12">
+                    {/* Header Sesi Style */}
+                    <header className="bg-sesi-blue text-white py-6 shadow-md">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                            <div>
+                                <h1 className="text-3xl font-bold tracking-tight">SESI <span className="font-light">Documentações</span></h1>
+                                <p className="text-sesi-light mt-1 text-sm">Controle de Autorizações de Funcionamento Escolar</p>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <button onClick={resetData} className="text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded transition">
+                                    Restaurar Planilha Base
+                                </button>
+                                <div className="bg-white p-2 rounded-lg shadow-sm">
+                                    <img 
+                                        src="https://i.postimg.cc/5y6TzvGM/marca-SESI-2024-completa-colorida.png" 
+                                        alt="Logo SESI" 
+                                        className="h-10 object-contain"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+                        
+                        {/* Infográfico Superior (Métricas) */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                            <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center justify-between border-l-4 border-l-sesi-blue">
+                                <div>
+                                    <p className="text-sm text-gray-500 font-bold uppercase tracking-wide">Total Documentos</p>
+                                    <h3 className="text-3xl font-light text-gray-800 mt-1">{processedData.stats.totalDocs}</h3>
+                                </div>
+                            </div>
+                            <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center justify-between border-l-4 border-l-red-500">
+                                <div>
+                                    <p className="text-sm text-red-600 font-bold uppercase tracking-wide">Vencidos</p>
+                                    <h3 className="text-3xl font-light text-gray-800 mt-1">{processedData.stats.expiredDocs}</h3>
+                                </div>
+                                <div className="text-red-500 opacity-50"><Icons.XCircle /></div>
+                            </div>
+                            <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center justify-between border-l-4 border-l-yellow-400">
+                                <div>
+                                    <p className="text-sm text-yellow-600 font-bold uppercase tracking-wide">Atenção (Próximos)</p>
+                                    <h3 className="text-3xl font-light text-gray-800 mt-1">{processedData.stats.warningDocs}</h3>
+                                </div>
+                                <div className="text-yellow-500 opacity-50"><Icons.Alert /></div>
+                            </div>
+                            <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center justify-between border-l-4 border-l-green-500">
+                                <div>
+                                    <p className="text-sm text-green-600 font-bold uppercase tracking-wide">Regulares</p>
+                                    <h3 className="text-3xl font-light text-gray-800 mt-1">{processedData.stats.validDocs}</h3>
+                                </div>
+                                <div className="text-green-500 opacity-50"><Icons.Check /></div>
+                            </div>
+                        </div>
+
+                        {/* Barra de Filtros e Botões */}
+                        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-1 w-full">
+                                <div className="relative w-full">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <Icons.Search />
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Buscar por resolução ou curso..." 
+                                        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue focus:border-transparent text-sm"
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
+                                </div>
+                                <div className="w-full">
+                                    <select 
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue bg-white text-sm truncate"
+                                        value={filterSchool}
+                                        onChange={(e) => setFilterSchool(e.target.value)}
+                                    >
+                                        <option value="">Todas as Escolas</option>
+                                        {schools.map(s => (
+                                            <option key={s.id} value={s.id}>{s.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="w-full">
+                                    <select 
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue bg-white text-sm truncate"
+                                        value={filterType}
+                                        onChange={(e) => setFilterType(e.target.value)}
+                                        title={filterType || "Todos os Tipos"}
+                                    >
+                                        <option value="">Todos os Tipos</option>
+                                        {availableTypes.map((type, idx) => (
+                                            <option key={`ft_${idx}`} value={type}>{type}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="w-full">
+                                    <select 
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue bg-white text-sm"
+                                        value={filterStatus}
+                                        onChange={(e) => setFilterStatus(e.target.value)}
+                                    >
+                                        <option value="">Todos os Status</option>
+                                        <option value="valid">Regulares</option>
+                                        <option value="warning">Atenção (Vencendo)</option>
+                                        <option value="expired">Vencidos</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div className="w-full md:w-auto mt-4 md:mt-0">
+                                <button 
+                                    onClick={exportToCSV}
+                                    className="w-full md:w-auto flex items-center justify-center px-4 py-2 border border-green-600 text-green-600 bg-white hover:bg-green-50 rounded-lg transition font-medium text-sm"
+                                    title="Exportar dados filtrados para Excel"
+                                >
+                                    <Icons.Download />
+                                    Exportar Relatório
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Grade de Escolas e Documentos */}
+                        <div className="space-y-8">
+                            {processedData.filtered.length === 0 ? (
+                                <div className="text-center py-12 text-gray-500">
+                                    Nenhum documento encontrado para os filtros selecionados.
+                                </div>
+                            ) : (
+                                processedData.filtered.map(school => (
+                                    <div key={school.id} className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                                        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                                            <div>
+                                                <h2 className="text-xl font-bold text-sesi-dark">{school.name}</h2>
+                                                <span className="text-xs text-gray-500 uppercase tracking-wider">{school.type}</span>
+                                            </div>
+                                            <button 
+                                                onClick={() => openAddModal(school.id)}
+                                                className="flex items-center text-sm bg-sesi-blue hover:bg-sesi-dark text-white px-4 py-2 rounded-lg transition"
+                                            >
+                                                <Icons.Plus /> Incluir Documento
+                                            </button>
+                                        </div>
+                                        
+                                        <div className="p-0">
+                                            <table className="min-w-full divide-y divide-gray-200">
+                                                <thead className="bg-gray-50">
+                                                    <tr>
+                                                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Tipo / Curso</th>
+                                                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Documento / Resolução</th>
+                                                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Validade</th>
+                                                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+                                                        <th className="px-6 py-3 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Ações</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="bg-white divide-y divide-gray-200">
+                                                    {school.documents.map(doc => {
+                                                        const status = getDocumentStatus(doc.expiration);
+                                                        return (
+                                                            <tr key={doc.id} className="hover:bg-gray-50 transition">
+                                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                                    {doc.type}
+                                                                </td>
+                                                                <td className="px-6 py-4 text-sm text-gray-600 max-w-md truncate" title={doc.name}>
+                                                                    {doc.name}
+                                                                    {doc.observations && (
+                                                                        <p className="text-xs text-gray-400 mt-1 truncate" title={doc.observations}>{doc.observations}</p>
+                                                                    )}
+                                                                </td>
+                                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                                    {doc.expiration ? new Date(doc.expiration + 'T00:00:00').toLocaleDateString('pt-BR') : '-'}
+                                                                </td>
+                                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${status.color}`}>
+                                                                        <span className="mr-1.5">{status.icon}</span>
+                                                                        {status.label}
+                                                                    </span>
+                                                                </td>
+                                                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                                    <button onClick={() => openEditModal(school.id, doc)} className="text-sesi-blue hover:text-sesi-dark mx-2 inline-block" title="Editar">
+                                                                        <Icons.Edit />
+                                                                    </button>
+                                                                    <button onClick={() => handleDelete(school.id, doc.id)} className="text-red-500 hover:text-red-700 mx-2 inline-block" title="Excluir">
+                                                                        <Icons.Trash />
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                    {school.documents.length === 0 && (
+                                                        <tr>
+                                                            <td colSpan="5" className="px-6 py-8 text-center text-sm text-gray-500">
+                                                                Nenhuma documentação cadastrada para esta unidade.
+                                                            </td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+
+                    </main>
+
+                    {/* Modal de Inclusão/Edição */}
+                    {isModalOpen && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                            <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+                                <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+                                    <h3 className="text-lg font-bold text-gray-800">
+                                        {formData.id ? 'Editar Documento' : 'Nova Documentação'}
+                                    </h3>
+                                    <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+                                        <Icons.XCircle />
+                                    </button>
+                                </div>
+                                <div className="p-6 overflow-y-auto hide-scroll">
+                                    <form id="docForm" onSubmit={handleSaveDocument} className="space-y-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Documento / Nível de Ensino *</label>
+                                            <input 
+                                                type="text" 
+                                                required
+                                                list="docTypesList"
+                                                placeholder="Selecione ou digite o tipo..."
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
+                                                value={formData.type}
+                                                onChange={(e) => setFormData({...formData, type: e.target.value})}
+                                            />
+                                            <datalist id="docTypesList">
+                                                {availableTypes.map((type, idx) => (
+                                                    <option key={`dl_${idx}`} value={type} />
+                                                ))}
+                                            </datalist>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Nome/Número do Processo ou Resolução *</label>
+                                            <input 
+                                                type="text" 
+                                                required
+                                                placeholder="Ex: CEE/CEB N.452"
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
+                                                value={formData.name}
+                                                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Data de Vencimento *</label>
+                                            <input 
+                                                type="date" 
+                                                required
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
+                                                value={formData.expiration}
+                                                onChange={(e) => setFormData({...formData, expiration: e.target.value})}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Observações / Status atual</label>
+                                            <textarea 
+                                                rows="3"
+                                                placeholder="Detalhes adicionais, pendências..."
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
+                                                value={formData.observations}
+                                                onChange={(e) => setFormData({...formData, observations: e.target.value})}
+                                            ></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-end gap-3">
+                                    <button 
+                                        type="button" 
+                                        onClick={() => setIsModalOpen(false)}
+                                        className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button 
+                                        type="submit" 
+                                        form="docForm"
+                                        className="px-4 py-2 text-sm font-medium text-white bg-sesi-blue border border-transparent rounded-lg hover:bg-sesi-dark"
+                                    >
+                                        Salvar Documento
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // Renderização
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
