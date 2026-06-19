@@ -46,51 +46,69 @@
     <script type="text/babel" data-presets="react">
         const { useState, useEffect, useMemo } = React;
 
-        // --- DADOS INICIAIS BASEADOS NAS PLANILHAS ---
+        // --- DADOS INICIAIS BASEADOS NAS PLANILHAS E LISTA OFICIAL ---
         const initialData = [
             {
-                id: "s1", name: "SESI Aparecida", type: "Própria",
+                id: "s_aparecida", name: "SESI Aparecida", type: "Própria",
                 documents: [
-                    { id: "d1", type: "Processos em andamento EF Anos Finais", name: "CEE/CEB N.452", expiration: "2027-12-31", observations: "Vigência até 31/12/2027" },
-                    { id: "d2", type: "Processos em andamento Ensino Médio", name: "CEE/CEB N.02 de 01/02/2019", expiration: "2023-12-31", observations: "Diligência 187 respondida pela escola em 23/01/25" },
-                    { id: "d3", type: "Processos em andamento EJA Presencial", name: "CEE/CEB N.45 Presencial e a distância", expiration: "2021-12-31", observations: "Vistoria agendada para 29/08/25" }
+                    { id: "d1", type: "Processos em andamento EF Anos Finais", name: "CEE/CEB N.452", expiration: "2027-12-31", documentLink: "", observations: "Vigência até 31/12/2027" },
+                    { id: "d2", type: "Processos em andamento Ensino Médio", name: "CEE/CEB N.02 de 01/02/2019", expiration: "2023-12-31", documentLink: "", observations: "Diligência 187 respondida pela escola em 23/01/25" },
+                    { id: "d3", type: "Processos em andamento EJA Presencial", name: "CEE/CEB N.45 Presencial e a distância", expiration: "2021-12-31", documentLink: "", observations: "Vistoria agendada para 29/08/25" }
+                ]
+            },
+            { id: "s_barro_alto", name: "SESI Barro Alto", type: "Própria", documents: [] },
+            { id: "s_campinas", name: "SESI Campinas", type: "Própria", documents: [] },
+            { id: "s_canaa", name: "SESI Canaã", type: "Própria", documents: [] },
+            { id: "s_catalao", name: "SESI Catalão", type: "Própria", documents: [] },
+            { id: "s_charuri", name: "SESI Dr. Celso Charuri", type: "Própria", documents: [] },
+            { id: "s_goianesia", name: "SESI Goianésia", type: "Própria", documents: [] },
+            { id: "s_itumbiara", name: "SESI Itumbiara", type: "Própria", documents: [] },
+            { id: "s_jaiara", name: "SESI Jaiara", type: "Própria", documents: [] },
+            { id: "s_jardim_colorado", name: "SESI Jardim Colorado", type: "Própria", documents: [] },
+            { id: "s_jundiai", name: "SESI Jundiaí", type: "Própria", documents: [] },
+            { id: "s_luziania", name: "SESI Luziânia", type: "Própria", documents: [] },
+            { id: "s_mineiros", name: "SESI Mineiros", type: "Própria", documents: [] },
+            {
+                id: "s_niquelandia", name: "SESI Niquelândia", type: "Própria",
+                documents: [
+                    { id: "d9", type: "Autorização Educação Infantil", name: "Resolução CME N.03", expiration: "2027-12-31", documentLink: "", observations: "Processo n.202418037011639" },
+                    { id: "d10", type: "Autorização EF Anos Iniciais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", documentLink: "", observations: "" },
+                    { id: "d11", type: "Autorização EF Anos Finais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", documentLink: "", observations: "" }
                 ]
             },
             {
-                id: "s2", name: "SESI Quirinópolis", type: "Própria",
+                id: "s_planalto", name: "SESI Planalto", type: "Própria",
                 documents: [
-                    { id: "d4", type: "Processos em andamento EJA EAD", name: "Processo 202518037007163", expiration: "2024-12-31", observations: "Pendente devido a reformas" }
+                    { id: "d12", type: "Autorização EF Anos Iniciais", name: "Resolução CEE/CEB N.399", expiration: "2029-12-31", documentLink: "", observations: "Processo n.202418037009981" },
+                    { id: "d13", type: "Autorização EM - Ciências da Natureza", name: "Resolução CEE/CEB/CEP N.06", expiration: "2028-12-31", documentLink: "", observations: "" }
+                ]
+            },
+            { id: "s_rio_verde", name: "SESI Rio Verde", type: "Própria", documents: [] },
+            { id: "s_universitario", name: "SESI Universitário", type: "Própria", documents: [] },
+            {
+                id: "s_quirinopolis", name: "SESI Quirinópolis", type: "Própria",
+                documents: [
+                    { id: "d4", type: "Processos em andamento EJA EAD", name: "Processo 202518037007163", expiration: "2024-12-31", documentLink: "", observations: "Pendente devido a reformas" }
                 ]
             },
             {
-                id: "s3", name: "SESI Crixás", type: "Mantenedora",
+                id: "s_crixas", name: "SESI Crixás", type: "Mantenedora",
                 documents: [
-                    { id: "d5", type: "Autorização Educação Infantil", name: "CME/ Crixás nº 007", expiration: "2027-12-31", observations: "" },
-                    { id: "d6", type: "Autorização EF Anos Iniciais", name: "CEE/CEB N.619", expiration: "2028-12-31", observations: "" }
+                    { id: "d5", type: "Autorização Educação Infantil", name: "CME/ Crixás nº 007", expiration: "2027-12-31", documentLink: "", observations: "" },
+                    { id: "d6", type: "Autorização EF Anos Iniciais", name: "CEE/CEB N.619", expiration: "2028-12-31", documentLink: "", observations: "" }
                 ]
             },
             {
-                id: "s4", name: "SESI Minaçu", type: "Mantenedora",
+                id: "s_minacu", name: "SESI Minaçu", type: "Mantenedora",
                 documents: [
-                    { id: "d7", type: "Autorização EF Anos Finais", name: "CEE/CEB N440", expiration: "2026-12-31", observations: "" },
-                    { id: "d8", type: "Autorização EM - Automação Industrial", name: "Processo 202500006074457 Itinerário Automação", expiration: "2026-12-31", observations: "UEG não tem esse doc" }
+                    { id: "d7", type: "Autorização EF Anos Finais", name: "CEE/CEB N440", expiration: "2026-12-31", documentLink: "", observations: "" },
+                    { id: "d8", type: "Autorização EM - Automação Industrial", name: "Processo 202500006074457 Itinerário Automação", expiration: "2026-12-31", documentLink: "", observations: "UEG não tem esse doc" }
                 ]
             },
-            {
-                id: "s5", name: "SESI Niquelândia", type: "Própria",
-                documents: [
-                    { id: "d9", type: "Autorização Educação Infantil", name: "Resolução CME N.03", expiration: "2027-12-31", observations: "Processo n.202418037011639" },
-                    { id: "d10", type: "Autorização EF Anos Iniciais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", observations: "" },
-                    { id: "d11", type: "Autorização EF Anos Finais", name: "Res. CEE/CEB N.195", expiration: "2026-12-31", observations: "" }
-                ]
-            },
-            {
-                id: "s6", name: "SESI Planalto", type: "Própria",
-                documents: [
-                    { id: "d12", type: "Autorização EF Anos Iniciais", name: "Resolução CEE/CEB N.399", expiration: "2029-12-31", observations: "Processo n.202418037009981" },
-                    { id: "d13", type: "Autorização EM - Ciências da Natureza", name: "Resolução CEE/CEB/CEP N.06", expiration: "2028-12-31", observations: "" }
-                ]
-            }
+            { id: "s_alto_horizonte", name: "SESI Alto Horizonte", type: "Mantenedora", documents: [] },
+            { id: "s_jaime_maximo", name: "SESI Jaime Máximo - Nerópolis", type: "Mantenedora", documents: [] },
+            { id: "s_maria_caldas", name: "SESI Maria Caldas - Nerópolis", type: "Mantenedora", documents: [] },
+            { id: "s_santa_maria", name: "SESI Santa Maria - Flores de Goiás", type: "Mantenedora", documents: [] }
         ];
 
         const Icons = {
@@ -101,7 +119,9 @@
             Trash: () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>,
             Plus: () => <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>,
             Search: () => <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>,
-            Download: () => <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            Download: () => <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4-4m4 4V4"></path></svg>,
+            ExternalLink: () => <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>,
+            Upload: () => <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
         };
 
         const App = () => {
@@ -142,7 +162,7 @@
             const [newSchoolName, setNewSchoolName] = useState('');
             const [newSchoolType, setNewSchoolType] = useState('Própria');
 
-            const [formData, setFormData] = useState({ id: '', type: '', name: '', expiration: '', observations: '' });
+            const [formData, setFormData] = useState({ id: '', type: '', name: '', expiration: '', observations: '', documentLink: '' });
 
             useEffect(() => {
                 localStorage.setItem('sesiEscolasDocs', JSON.stringify(schools));
@@ -209,7 +229,7 @@
                 setOriginalSchoolId(null);
                 setNewSchoolName('');
                 setNewSchoolType('Própria');
-                setFormData({ id: '', type: '', name: '', expiration: '', observations: '' });
+                setFormData({ id: '', type: '', name: '', expiration: '', observations: '', documentLink: '' });
                 setIsModalOpen(true);
             };
 
@@ -292,7 +312,7 @@
             };
 
             const exportToCSV = () => {
-                const headers = ['Unidade', 'Tipo de Escola', 'Nível de Ensino / Curso', 'Processo / Resolução', 'Validade', 'Status', 'Observacoes'];
+                const headers = ['Unidade', 'Tipo de Escola', 'Nível de Ensino / Curso', 'Processo / Resolução', 'Link de Acesso', 'Validade', 'Status', 'Observacoes'];
                 const rows = [];
                 
                 processedData.filtered.forEach(school => {
@@ -306,6 +326,7 @@
                             cleanStr(school.type),
                             cleanStr(doc.type),
                             cleanStr(doc.name),
+                            cleanStr(doc.documentLink),
                             cleanStr(dataFormatada),
                             cleanStr(statusObj.label),
                             cleanStr(doc.observations)
@@ -323,6 +344,102 @@
                 link.click();
                 document.body.removeChild(link);
                 URL.revokeObjectURL(url);
+            };
+
+            const handleImportCSV = (event) => {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const text = e.target.result;
+                    const lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
+                    if (lines.length < 2) {
+                        alert('O arquivo parece estar vazio ou sem dados válidos.');
+                        return;
+                    }
+
+                    // Identifica se o separador do Excel é vírgula ou ponto e vírgula
+                    const sep = lines[0].includes(';') ? ';' : ',';
+                    const headers = lines[0].split(sep).map(h => h.trim().replace(/(^"|"$)/g, '').toLowerCase());
+
+                    // Mapeia as colunas dinamicamente buscando nomes similares
+                    const idxUnidade = headers.findIndex(h => h.includes('unidade') || h.includes('escola'));
+                    const idxTipoEscola = headers.findIndex(h => h.includes('tipo de escola') || h.includes('tipo da unidade'));
+                    const idxTipoDoc = headers.findIndex(h => h.includes('nível') || h.includes('curso') || h.includes('tipo de documento'));
+                    const idxNome = headers.findIndex(h => h.includes('processo') || h.includes('resolução') || h.includes('documento'));
+                    const idxLink = headers.findIndex(h => h.includes('link'));
+                    const idxValidade = headers.findIndex(h => h.includes('validade') || h.includes('vencimento'));
+                    const idxObs = headers.findIndex(h => h.includes('observa') || h.includes('obs'));
+
+                    if (idxUnidade === -1 || idxNome === -1) {
+                        alert('Colunas obrigatórias não encontradas. O CSV deve conter pelo menos "Unidade" e "Processo / Resolução".');
+                        return;
+                    }
+
+                    const newSchoolsMap = new Map();
+
+                    for (let i = 1; i < lines.length; i++) {
+                        const regex = new RegExp(`(?:^|${sep})("(?:[^"]|"")*"|[^${sep}]*)`, 'g');
+                        let row = [];
+                        let match;
+                        while ((match = regex.exec(lines[i])) !== null) {
+                            if (match[1] !== undefined) {
+                                row.push(match[1].replace(/(^"|"$)/g, '').replace(/""/g, '"').trim());
+                            }
+                            if (regex.lastIndex === 0) break; 
+                        }
+
+                        if (row.length < 2) continue;
+
+                        const schoolName = row[idxUnidade] || 'Unidade Desconhecida';
+                        const schoolType = idxTipoEscola !== -1 ? (row[idxTipoEscola] || 'Própria') : 'Própria';
+                        const docType = idxTipoDoc !== -1 ? (row[idxTipoDoc] || 'Documento') : 'Documento';
+                        const docName = row[idxNome] || 'Sem Título';
+                        let docExpiration = idxValidade !== -1 ? row[idxValidade] : '';
+                        const docLink = idxLink !== -1 ? row[idxLink] : '';
+                        const docObs = idxObs !== -1 ? row[idxObs] : '';
+
+                        // Converte data DD/MM/YYYY para o padrão do sistema (YYYY-MM-DD)
+                        if (docExpiration && docExpiration.includes('/')) {
+                            const parts = docExpiration.split('/');
+                            if (parts.length === 3) {
+                                docExpiration = `${parts[2]}-${parts[1]}-${parts[0]}`;
+                            }
+                        }
+
+                        if (!newSchoolsMap.has(schoolName)) {
+                            newSchoolsMap.set(schoolName, {
+                                id: 's_imp_' + Date.now() + Math.random().toString(36).substr(2, 9),
+                                name: schoolName,
+                                type: schoolType,
+                                documents: []
+                            });
+                        }
+
+                        if(docName !== 'Sem Título' && docName !== '') {
+                            newSchoolsMap.get(schoolName).documents.push({
+                                id: 'd_imp_' + Date.now() + Math.random().toString(36).substr(2, 9),
+                                type: docType,
+                                name: docName,
+                                expiration: docExpiration,
+                                documentLink: docLink,
+                                observations: docObs
+                            });
+                        }
+                    }
+
+                    const importedSchools = Array.from(newSchoolsMap.values());
+                    if (importedSchools.length > 0) {
+                        if (confirm(`Encontradas ${importedSchools.length} unidades no arquivo. Deseja substituir os dados atuais do painel por estes novos dados importados?`)) {
+                            setSchools(importedSchools);
+                        }
+                    } else {
+                        alert('Nenhum dado válido encontrado para importar.');
+                    }
+                };
+                reader.readAsText(file, 'ISO-8859-1'); // Previne falha com acentos típicos de planilhas BR
+                event.target.value = null; // Reseta o input
             };
 
             return (
@@ -442,6 +559,23 @@
                                 >
                                     <Icons.Plus /> Novo Documento
                                 </button>
+                                
+                                {/* Input oculto para carregar arquivo CSV */}
+                                <input 
+                                    type="file" 
+                                    id="csvFileInput" 
+                                    accept=".csv" 
+                                    className="hidden" 
+                                    onChange={handleImportCSV} 
+                                />
+                                <button 
+                                    onClick={() => document.getElementById('csvFileInput').click()}
+                                    className="w-full sm:w-auto flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 rounded-lg transition font-medium text-sm"
+                                    title="Importar dados de um arquivo CSV"
+                                >
+                                    <Icons.Upload /> Importar CSV
+                                </button>
+
                                 <button 
                                     onClick={exportToCSV}
                                     className="w-full sm:w-auto flex items-center justify-center px-4 py-2 border border-green-600 text-green-600 bg-white hover:bg-green-50 rounded-lg transition font-medium text-sm"
@@ -482,6 +616,7 @@
                                                         <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Documento / Resolução</th>
                                                         <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Validade</th>
                                                         <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+                                                        <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Observações</th>
                                                         <th className="px-6 py-3 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Ações</th>
                                                     </tr>
                                                 </thead>
@@ -493,11 +628,15 @@
                                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                                     {doc.type}
                                                                 </td>
-                                                                <td className="px-6 py-4 text-sm text-gray-600 max-w-md truncate" title={doc.name}>
-                                                                    {doc.name}
-                                                                    {doc.observations && (
-                                                                        <p className="text-xs text-gray-400 mt-1 truncate" title={doc.observations}>{doc.observations}</p>
-                                                                    )}
+                                                                <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate" title={doc.name}>
+                                                                    <div className="flex items-center gap-2">
+                                                                        <span className="truncate">{doc.name}</span>
+                                                                        {doc.documentLink && (
+                                                                            <a href={doc.documentLink} target="_blank" rel="noopener noreferrer" className="text-sesi-blue hover:text-sesi-dark flex-shrink-0" title="Acessar Documento">
+                                                                                <Icons.ExternalLink />
+                                                                            </a>
+                                                                        )}
+                                                                    </div>
                                                                 </td>
                                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                                     {doc.expiration ? new Date(doc.expiration + 'T00:00:00').toLocaleDateString('pt-BR') : '-'}
@@ -507,6 +646,9 @@
                                                                         <span className="mr-1.5">{status.icon}</span>
                                                                         {status.label}
                                                                     </span>
+                                                                </td>
+                                                                <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate" title={doc.observations}>
+                                                                    {doc.observations || '-'}
                                                                 </td>
                                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                                     <button onClick={() => openEditModal(school.id, doc)} className="text-sesi-blue hover:text-sesi-dark mx-2 inline-block" title="Editar">
@@ -521,7 +663,7 @@
                                                     })}
                                                     {school.documents.length === 0 && (
                                                         <tr>
-                                                            <td colSpan="5" className="px-6 py-8 text-center text-sm text-gray-500">
+                                                            <td colSpan="6" className="px-6 py-8 text-center text-sm text-gray-500">
                                                                 Nenhuma documentação cadastrada para esta unidade.
                                                             </td>
                                                         </tr>
@@ -640,6 +782,16 @@
                                                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
                                                     value={formData.name}
                                                     onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                                />
+                                            </div>
+                                            <div className="md:col-span-2">
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">Link de Acesso (URL do Documento)</label>
+                                                <input 
+                                                    type="url" 
+                                                    placeholder="Ex: https://drive.google.com/..."
+                                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sesi-blue"
+                                                    value={formData.documentLink || ''}
+                                                    onChange={(e) => setFormData({...formData, documentLink: e.target.value})}
                                                 />
                                             </div>
                                             <div className="md:col-span-2">
