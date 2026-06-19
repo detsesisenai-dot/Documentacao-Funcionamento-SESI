@@ -240,8 +240,11 @@
         };
 
         const App = () => {
+            // Nova chave de cache para forçar navegadores a lerem a base completa
+            const CACHE_KEY = 'sesiEscolasDocs_v2';
+
             const [schools, setSchools] = useState(() => {
-                const saved = localStorage.getItem('sesiEscolasDocs');
+                const saved = localStorage.getItem(CACHE_KEY);
                 if (saved) return JSON.parse(saved);
                 return initialData;
             });
@@ -280,7 +283,7 @@
             const [formData, setFormData] = useState({ id: '', type: '', name: '', expiration: '', observations: '', documentLink: '' });
 
             useEffect(() => {
-                localStorage.setItem('sesiEscolasDocs', JSON.stringify(schools));
+                localStorage.setItem(CACHE_KEY, JSON.stringify(schools));
             }, [schools]);
 
             const getDocumentStatus = (expirationStr) => {
